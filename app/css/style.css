@@ -1,0 +1,28 @@
+.star-rating {
+  position: relative;
+  width: 5em;
+  /* height: 1em; */
+  font-size: 17px;
+}
+
+.star-rating-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden; /*指定幅からはみ出した部分を隠す。*/
+  white-space: nowrap; /*widthが足りない時に、折り返さないようにする。 */
+  color: #ffcc33;
+  height: 25px;
+}
+
+.star-rating-back {
+  display: inline;
+  color: #ccc;
+  float: left;
+}
+
+.star-rating-comment-front {
+  display: inline;
+  color: #ffcc33;
+  float: left;
+}
