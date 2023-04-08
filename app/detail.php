@@ -2,8 +2,9 @@
 
 require_once("../libs/functions.php");
 require_once("../libs/ImageDAO.php");
-require_once("../libs/AverageDAO.php");
+// require_once("../libs/AverageDAO.php");
 require_once("../libs/CommentDAO.php");
+require_once("../libs/UserDAO.php");
 
 $image_id = (string)filter_input(INPUT_GET, "image_id"); //image_idのリクエストパラメータを取得,ex)~?id=1&~ の時の1
 if($image_id === ""){
@@ -21,18 +22,19 @@ try{
 	$pdo = new_PDO();
 
 	$image_dao = new ImageDAO($pdo);
-	$average_dao = new AverageDAO($pdo);
+	// $average_dao = new AverageDAO($pdo);
 	$comment_dao = new CommentDAO($pdo);
+	$user_dao = new UserDAO($pdo);
 	$images = $image_dao->selectById($image_id);
 	if($images === false){
-		set_message("Error: Invalid image id." . $image_id);
+		set_message("Error: Invalid image id:" . $image_id);
 		header("Location: error.php");
 		exit;
 	}
 
 	$comments = $comment_dao->allComment($image_id);
 	if($comments === false){
-		set_message("Error: Invalid image id." . $image_id);
+		set_message("Error: Invalid image id:" . $image_id);
 		header("Location: error.php");
 		exit;
 	}

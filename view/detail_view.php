@@ -8,38 +8,22 @@
 		<main class="container py-4">
 			<?php require("_message_view.php"); ?>
 			<?php $book = get_book_info($images); ?>
-			<img src="<?= h($book->volumeInfo->imageLinks->thumbnail); ?>" alt="画像">
-				<p>
-					<b>『<?= h($images["book_name"]); ?>』</b><br />
-					
-					著者：<?php echo get_author($book); ?>
-				</p>
-				<div class="average-score mb3">
-					<div class="star-rating ml-2">
-						<div class="star-rating-front" style="width: <?php echo $average_dao->avgScore($image_id, 20); ?>%" >★★★★★</div>
-						<div class="star-rating-back">★★★★★</div>
-					</div>
-					<div class="average-score-display">
-						<?= h("(" . $average_dao->avgScore($image_id, 1) . "点)"); ?>
-					</div>
-				</div>
 				<?php 
-				$count_comment = count($comments);
-				echo "コメント:" . $count_comment . "件"?>
-				<button onclick="location.href='./home.php';">戻る</button>
-			</div>
+					$count = $comment_dao->avgScore($images["id"], 0);
+					$evaluation = $comment_dao->avgScore($images["id"], 1);
+					create_block($book, $count, $evaluation);
+				?>
 			<p>コメント</p>
 			<ul>
-				<?php for($i=0; $i<$count_comment; $i++){?>
-					<!-- 要変更 -->
-					<?php for($j=0; $j<$comments[$i]['comment_eva']; $j++){ ?>
-							<?php } 
-							$count = 0;
-							while($count < 5){ ?>
-								<div class="<?= $comments[$i]['comment_eva'] > $count ? 'star-rating-comment-front' : 'star-rating-back' ?> ">★</div>
-								<?php $count++;
-							}?>
+				<?php for($i=0; $i<$count; $i++){
+					$nickname = $user_dao->getName($comments[$i]["user_id"]); 
+					$countStar = 0;
+					while($countStar < 5){ ?>
+						<div class="<?= $comments[$i]['comment_eva'] > $countStar ? 'star-rating-comment-front' : 'star-rating-back' ?> ">★</div>
+						<?php $countStar++;
+					}?>
 					<?= h($comments[$i]['create_date']);?>
+					<?= h($nickname['name']);?>
 					<li><?= h($comments[$i]['comment']); ?></li>
 				<?php } ?>
 			</ul>

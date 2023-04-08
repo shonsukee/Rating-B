@@ -18,14 +18,14 @@
 					</p>
 					<div class="average-score mb3">
 						<div class="star-rating ml-2">
-							<div class="star-rating-front" style="width: <?php echo $average_dao->avgScore($image["id"], 20);?>%" >★★★★★</div>
+							<div class="star-rating-front" style="width: <?php echo $comment_dao->avgScore($image["id"], 20);?>%" >★★★★★</div>
 							<div class="star-rating-back">★★★★★</div>
 						</div>
 						<div class="average-score-display">
-							<?php echo "(" . $average_dao->avgScore($image["id"], 1) . "点)"; ?>
+							<?php echo "(" . $comment_dao->avgScore($image["id"], 1) . "点)"; ?>
 						</div>
 						<div class="commentNum">
-							<?php echo "コメント:" . $average_dao->avgScore($image["id"], 0) . "件"?>
+							<?php echo "コメント:" . $comment_dao->avgScore($image["id"], 0) . "件"?>
 						</div>
 					</div>
 				</a>

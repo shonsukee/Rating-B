@@ -159,26 +159,28 @@ function create_block($book, $count, $evaluation){
 	$authors = $book->volumeInfo->authors;
 	$percentage = $evaluation * 20;
 
-	
-
-	print("<img src=$image_link alt='画像'> ");
-		print("<p>");
-			print("<b>『 $title 』</b><br />");
-			print("著者：");
+	print("
+		<img src=$image_link alt='画像'>
+		<p>
+			<b>『 $title 』</b><br />
+			著者：");
 			foreach($authors as $author){
 				echo $author . " ";
 			}
-		print("</p>");
-	print("<div class='average-score mb3'>");
-		print("<div class='star-rating ml-2'>");
-			print("<div class='star-rating-front' style='width:$percentage%' >★★★★★</div>");
-			print("<div class='star-rating-back'>★★★★★</div>");
-		print("</div>");
-		print("<div class='average-score-display'>");
-			print("( $evaluation 点)");
-		print("</div>");
-		print("<div class='commentNum'>");
-			print("コメント: $count 件");
-		print("</div>");
-	print("</div>");
+
+	print("
+		</p>
+		<div class='average-score mb3'>
+			<div class='star-rating ml-2'>
+				<div class='star-rating-front' style='width:$percentage%' >★★★★★</div>
+				<div class='star-rating-back'>★★★★★</div>
+			</div>
+			<div class='average-score-display'>
+				( $evaluation 点)
+			</div>
+			<div class='commentNum'>
+				コメント: $count 件
+			</div>
+		</div>
+	");
 }

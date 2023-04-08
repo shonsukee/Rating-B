@@ -12,16 +12,16 @@
 				<a href="../app/detail.php?image_id=<?= h($image["id"]); ?>">
 					<?php $book = get_book_info($image); ?>
 				<?php
-					print_r("<pre>");
-					print_r($image);
-					print_r("</pre>");
-					print_r("<pre>");
-					print_r($book);
-					print_r("</pre>");
+					// print_r("<pre>");
+					// print_r($image);
+					// print_r("</pre>");
+					// print_r("<pre>");
+					// print_r($book);
+					// print_r("</pre>");
 				?>
 					<?php 
-						$count = $average_dao->avgScore($image["id"], 0);
-						$evaluation = $average_dao->avgScore($image["id"], 1);
+						$count = $comment_dao->avgScore($image["id"], 0);
+						$evaluation = $comment_dao->avgScore($image["id"], 1);
 						create_block($book, $count, $evaluation);
 					?>
 				</a>
