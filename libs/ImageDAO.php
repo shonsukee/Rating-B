@@ -5,6 +5,7 @@ class ImageDAO{
 		$this->pdo = $pdo;
 	}
 
+	/* 画像すべて*/
 	function selectAll(){
 		$sql = "select 
 					*
@@ -17,33 +18,17 @@ class ImageDAO{
 
 		return $courses;
 	}
-	
+
+	/* ID指定して一冊の情報を返す*/
 	function selectById($image_id){
 		$sql = "select 
-					book_url,
-					book_name
+					*
 				from
 					images
 				where
 					id = :image_id
 				order by
-					create_date"; //ここ要修正！！！！！！！！！！！！！！！！！！！！！！！！！
-		
-				// 	$sql = "select 
-				// 	img.book_url,
-				// 	img.book_name,
-				// 	cmt.comment,
-				// 	cmt.comment_eva,
-				// 	cmt.create_date
-				// from
-				// 	images img,
-				// 	comments cmt
-				// where
-				// 	img.id = :image_id
-				// and
-				// 	cmt.image_id = :image_id
-				// order by
-				// 	cmt.create_date";
+					create_date"; 
 
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(":image_id", $image_id, PDO::PARAM_INT);
@@ -52,5 +37,59 @@ class ImageDAO{
 
 		return $image;
 	}
+
+	/* URLから画像が投稿されているか確認し，情報があれば返す*/
+	function checkImage($book_url){
+		$sql = "select
+					id
+				from
+					images
+				where
+					book_url = :book_url";
+
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":book_url", $book_url, PDO::PARAM_STR);
+		$stmt->execute();
+		$image = $stmt->fetch();
+
+		return $image;
+	}
+
+	/**ユーザがコメントした本の情報を返す */
+	function getBookInfo()
+	{
+		$user_id = $_SESSION[SESSION_ACCOUNT]["id"];
+		$sql = 	"SELECT 
+					*
+				FROM
+					images
+				where 
+					id 
+				IN 
+					(SELECT 
+						image_id
+					FROM 
+						comments
+					where 
+						user_id = :user_id)";
+
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$image = $stmt->fetchAll();
+		
+		return $image;
+	}
+
+	/**本を投稿 */
+	function insertBook($url)
+	{
+		/**画像をアップロード */
+		$sql = "INSERT INTO images (book_url) VALUES (:url)";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":url", $url, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+
 }
 ?>

@@ -7,9 +7,11 @@ define("MESSAGE_SIGNIN_SUCCESS", "Sign in successful.");
 define("MESSAGE_SIGNIN_ERROR", "Sign in error.");
 define("MESSAGE_SIGNUP_SUCCESS", "Sign up successful.");
 define("MESSAGE_SIGNUP_ERROR", "Sign up error.");
-define("MESSAGE_SIGNUP_ERROR_NOT_AVAILABLE_NAME", "Sign up error. This name is not available.");
-define("MESSAGE_FINISH_SECTION", "Learning completed.");
-define("MESSAGE_NO_LEARNING_HISTORY", "No learning history.");
+define("MESSAGE_VALUE_ERROR", "There is an invalid input field.");
+define("MESSAGE_NULL_ERROR", "There is an empty input field.");
+define("MESSAGE_MAIL_ERROR", "Not registered.");
+define("MESSAGE_PASS_ERROR", "Password is different.");
+define("MESSAGE_NO_QUERY", "Please enter query.");
 
 session_start();
 
@@ -137,50 +139,58 @@ function get_book_info($image)//本の情報を取得
 function get_author($book){
 	$author_count = 0;
 	$all_author = "";
-	foreach($book->volumeInfo->authors as $author){
-		if($author_count < 2){
-			$all_author .= $author; 
-		} else if ($authcount == 2){
-			$all_author = "...etc";
+	
+	foreach ($book->volumeInfo->authors as $author) {
+		if ($author_count < 2) {
+			$all_author .= ($all_author ? ' ' : '') . $author;
 		}
 		$author_count++;
+	}
+	
+	if ($author_count > 2) {
+		$all_author .= ' ...etc';
 	}
 	
 	return $all_author;
 }
 
-//book block
-/**
- * 
- */
 function create_block($book, $count, $evaluation){
 	$image_link = $book->volumeInfo->imageLinks->thumbnail;
 	$title = $book->volumeInfo->title;
-	$authors = $book->volumeInfo->authors;
+	$author = get_author($book);
+
+	if(strlen($title) > 23) {
+		$title = mb_substr($title, 0, 6, "UTF-8") . '...';
+	}
+	print("
+		<img src=$image_link alt='画像' class='shadow-sm img-size'>
+		<div class='book-text'>
+		<hr>
+			<h4> <b>『 $title 』</b> </h4>
+			著者：$author ");
+	if($count != "" && $evaluation != ""){
+		print_rate($count, $evaluation);
+	} else{
+		print("</div>");
+	}
+}
+		
+function print_rate($count, $evaluation){
 	$percentage = $evaluation * 20;
-
 	print("
-		<img src=$image_link alt='画像'>
-		<p>
-			<b>『 $title 』</b><br />
-			著者：");
-			foreach($authors as $author){
-				echo $author . " ";
-			}
-
-	print("
-		</p>
-		<div class='average-score mb3'>
-			<div class='star-rating ml-2'>
-				<div class='star-rating-front' style='width:$percentage%' >★★★★★</div>
-				<div class='star-rating-back'>★★★★★</div>
+			<div class='row'>
+				<div class='col-7 justify-content-end d-inline-flex'>
+					<div class=' star-rating'>
+						<div class='star-rating-front' style='width:$percentage%' >★★★★★</div>
+						<div class='star-rating-back'>★★★★★</div>
+					</div>
+				</div>
+				<div>
+					( $evaluation 点)
+				</div>
 			</div>
-			<div class='average-score-display'>
-				( $evaluation 点)
-			</div>
-			<div class='commentNum'>
-				コメント: $count 件
-			</div>
+			コメント: $count 件	
 		</div>
 	");
+
 }

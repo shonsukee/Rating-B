@@ -7,13 +7,17 @@
 		<?php require("_header_view.php"); ?>
 			<main class="container py-4">
 				<?php require("_message_view.php"); ?>
-				<div class="row mt-3">
-					<div class="col-12">
-						<h3>Recommend Books</h3>
-						<p>Please click the recommend book!</p>
-						<hr>
+				<div class="row mt-3 cen-ptn">
+					<div class="col-lg-5 cen-ptn">
+						<p><i class="fas fa-sharp fa-solid fa-user-circle fa-9x"></i></p>
+					</div>
+					<div class="col-lg-7 cen-name">
+						<h3><?= h($_SESSION[SESSION_ACCOUNT]["name"]);?></h3>
+						<p><?= h($_SESSION[SESSION_ACCOUNT]["mail"]);?></p>
+						<p>コメントした本：<?= h(count($images));?>冊</p>
 					</div>
 				</div>
+				<hr>
 				<div class="row">
 					<?php foreach ($images as $image) { ?> <!--降順に画像を貼る-->
 						<div class="col-lg-3">

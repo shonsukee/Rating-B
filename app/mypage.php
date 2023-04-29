@@ -9,9 +9,9 @@ try{
 	$image_dao = new ImageDAO($pdo);
 	$comment_dao = new CommentDAO($pdo);
 
-	$images = $image_dao->selectAll();
+	$images = $image_dao->getBookInfo();
 
-	require("../view/home_view.php");
+	require("../view/mypage_view.php");
 } catch(PDOException $e) {
 	error_log($e->getMessage());
 	header("Location: error.php");
