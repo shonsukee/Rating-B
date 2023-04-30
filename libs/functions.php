@@ -33,13 +33,30 @@ function createTableIfNotExists($pdo, $tableName, $columns) {
 
 function new_PDO() //PDOインスタンスを返却
 {
-    $user = "gl54p9kpv5ky38vb";
-	$pass = "r80pjoeipkepth7f";
-    $pdo = new PDO("mysql:host=exbodcemtop76rnz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=r00g7duuf8nhe35l;charset=utf8", $user, $pass, [
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    // $user = "gl54p9kpv5ky38vb";
+	// $pass = "r80pjoeipkepth7f";
+    // $pdo = new PDO("mysql:host=exbodcemtop76rnz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=r00g7duuf8nhe35l;charset=utf8", $user, $pass, [
+    //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    //     PDO::ATTR_EMULATE_PREPARES => false
+    // ]);
+
+	$dbUrl = getenv('JAWSDB_URL');
+	$pattern = '/mysql:\/\/(.*):(.*)@(.*):(.*)\/(.*)/';
+	preg_match($pattern, $dbUrl, $params);
+	$database = $params[5];
+	$username = $params[1];
+	$password = $params[2];
+	$host = $params[3];
+	$port = $params[4];
+
+	$pdo = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password, [
+	    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+	    PDO::MYSQL_ATTR_INIT_COMMAND => "SET sql_mode='STRICT_TRANS_TABLES'",
+		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false
-    ]);
+	]);
+
 
 	$tableName = "comments";
 	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
