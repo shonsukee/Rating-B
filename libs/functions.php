@@ -33,16 +33,10 @@ function createTableIfNotExists($pdo, $tableName, $columns) {
 
 function new_PDO() //PDOインスタンスを返却
 {
-    // $user = "gl54p9kpv5ky38vb";
-	// $pass = "r80pjoeipkepth7f";
-    // $pdo = new PDO("mysql:host=exbodcemtop76rnz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=r00g7duuf8nhe35l;charset=utf8", $user, $pass, [
-    //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    //     PDO::ATTR_EMULATE_PREPARES => false
-    // ]);
-
 	$dbUrl = getenv('JAWSDB_URL');
 	$pattern = '/mysql:\/\/(.*):(.*)@(.*):(.*)\/(.*)/';
+	print_r($dbUrl);
+	print_r($pattern);
 	preg_match($pattern, $dbUrl, $params);
 	$database = $params[5];
 	$username = $params[1];
