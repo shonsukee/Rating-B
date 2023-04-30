@@ -5,7 +5,7 @@ require("../libs/UserDAO.php");
 // csrf_tokenが届いているか判定
 $csrf_token = filter_input(INPUT_POST, "csrf_token");
 if(validate_csrf_token($csrf_token) === false){
-	set_message(MESSAGE_SIGNIN_ERROR);
+	set_message("No csrf token");
 	header("Location: error.php");
 	exit;
 }
