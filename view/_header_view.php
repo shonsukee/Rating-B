@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-			<a href="../app/home.php" class="navbar-brand">
+			<a href="../app/index.php" class="navbar-brand">
 				<img src="../app/img/logo.png" alt="logo" class="logo">
 			</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
                                 <?= h(get_account_name()) ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="../app/home.php">Home</a>
+								<a class="dropdown-item" href="../app/index.php">Home</a>
 								<div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../app/mypage.php">My page</a>
 								<div class="dropdown-divider"></div> 
