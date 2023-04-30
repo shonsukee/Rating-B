@@ -44,7 +44,7 @@
 											$countStar = 0;
 											?>
 											<div>
-												<i class="fas fa-solid fa-user fa-lg rounded-circle"></i>
+												<!-- <i class="fas fa-solid fa-user fa-lg rounded-circle"></i> -->
 												<?= h($user_name['name']);?>
 											</div>
 											<?php
