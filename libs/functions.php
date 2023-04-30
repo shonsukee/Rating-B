@@ -20,15 +20,54 @@ function h($str) // HTML特殊文字を変換
     return htmlspecialchars($str, ENT_QUOTES);
 }
 
+function createTableIfNotExists($pdo, $tableName, $columns) {
+    $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
+    $stmt->execute([$tableName]);
+    $result = $stmt->rowCount();
+    if ($result == 0) {
+        // テーブルが存在しない場合のみクエリを実行する
+        $query = "CREATE TABLE " . $tableName . " (" . $columns . ")";
+        $pdo->exec($query);
+    }
+}
+
 function new_PDO() //PDOインスタンスを返却
 {
-    $user = "shonsuke";
-	$pass = "ShonsukePass12";
-    $pdo = new PDO("mysql:host=localhost;dbname=ratingb;charset=utf8", $user, $pass, [
+    $user = "gl54p9kpv5ky38vb";
+	$pass = "r80pjoeipkepth7f";
+    $pdo = new PDO("mysql:host=exbodcemtop76rnz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=r00g7duuf8nhe35l;charset=utf8", $user, $pass, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES => false
     ]);
+
+	$tableName = "comments";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				image_id INT(11) NOT NULL,
+				user_id INT(11) NOT NULL,
+				comment TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+				comment_eva INT(11) NOT NULL,
+				create_date TIMESTAMP NOT NULL DEFAULT current_timestamp()";
+		
+	createTableIfNotExists($pdo, $tableName, $columns);
+
+	$tableName = "images";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				book_url VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+				create_date TIMESTAMP NOT NULL DEFAULT current_timestamp()";
+		
+	createTableIfNotExists($pdo, $tableName, $columns);
+
+	$tableName = "register_user";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				name TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				mail TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				password TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				status TINYINT(1) NOT NULL DEFAULT '0',
+				create_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				update_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP";
+	
+	createTableIfNotExists($pdo, $tableName, $columns);
 	
     return $pdo;
 }
