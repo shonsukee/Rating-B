@@ -1,6 +1,6 @@
 <?php
 
-require_once("../libs/functions.php");
+require("../libs/functions.php");
 
 $csrf_token = generate_csrf_token();
 

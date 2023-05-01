@@ -32,7 +32,7 @@
 				$query .= $params['inauthor'] . "  ";
 				$query .= "』";
 				?>
-				<p class="result"><?php echo $query . "は見つかりませんでした．"?></p>
+				<p class="cen-ptn"><?php echo $query . "は見つかりませんでした．"?></p>
 			<?php endif; ?>
 		</main>
 		<?php require("_footer_view.php"); ?>

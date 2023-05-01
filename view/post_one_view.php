@@ -18,11 +18,8 @@
 					<div class="mb-4 mx-5 one-book cen-ptn shadow-md">
 						<div>
 							<?php 
-								// $count = $comment_dao->avgScore($image["id"], 0);
-								// $evaluation = $comment_dao->avgScore($image["id"], 1);
-								// $book = get_book_info($image); 
 								create_block($book, "", "");
-								?>
+							?>
 						</div>
 					</div>
 				</div>

@@ -59,7 +59,7 @@ try{
 	sign_in($user_info);
 	set_message(MESSAGE_SIGNIN_SUCCESS);
 	// $_SESSION["signin_user"] = $user_info; 消して！！！！！！！！！！！！
-	header("Location: ../index.php");
+	header("Location: index.php");
 } catch(PDOException $e){
 	set_message(MESSAGE_SIGNIN_ERROR);
 	header("Location: error.php");

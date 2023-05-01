@@ -134,3 +134,7 @@ body,
   display: flex;
   margin: 0 auto;
 }
+
+.result {
+  margin: 300px;
+}

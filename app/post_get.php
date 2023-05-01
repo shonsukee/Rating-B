@@ -18,7 +18,7 @@ $base_url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
 if($params["intitle"] == "" && $params["inauthor"] == ""){
 	set_message(MESSAGE_NO_QUERY);
-	header('Location:../view/post_search_view.php');
+	header('Location: post_search.php');
 	exit();
 }
 

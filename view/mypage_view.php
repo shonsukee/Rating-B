@@ -9,7 +9,7 @@
 				<?php require("_message_view.php"); ?>
 				<div class="row mt-3 cen-ptn">
 					<div class="col-lg-5 cen-ptn">
-						<!-- <p><i class="fas fa-sharp fa-solid fa-user-circle fa-9x"></i></p> -->
+						<p><i class="fas fa-sharp fa-solid fa-user-circle fa-9x"></i></p>
 					</div>
 					<div class="col-lg-7 cen-name">
 						<h3><?= h($_SESSION[SESSION_ACCOUNT]["name"]);?></h3>

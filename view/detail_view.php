@@ -44,7 +44,7 @@
 											$countStar = 0;
 											?>
 											<div>
-												<!-- <i class="fas fa-solid fa-user fa-lg rounded-circle"></i> -->
+												<i class="fas fa-solid fa-user fa-lg rounded-circle"></i>
 												<?= h($user_name['name']);?>
 											</div>
 											<?php
@@ -59,7 +59,7 @@
 								</ul>
 							</div>
 							<?php if(isset($csrf_token)){ ?>
-								<form action="./post_comment.php?image_id=<?= h($image_id); ?>" method="POST" enctype="multipart/form-data">
+								<form action="./post_comment.php?link=<?= h($book->selfLink); ?>" method="POST" enctype="multipart/form-data">
 									<div class="radio cen-ptn">
 										<input type="radio" id="inq1" name="num" value="1"> <label for="inq1">★</label>
 										<input type="radio" id="inq2" name="num" value="2"><label for="inq2">★★</label>

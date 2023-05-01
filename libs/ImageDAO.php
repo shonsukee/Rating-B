@@ -84,11 +84,13 @@ class ImageDAO{
 	/**本を投稿 */
 	function insertBook($url)
 	{
-		/**画像をアップロード */
-		$sql = "INSERT INTO images (book_url) VALUES (:url)";
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindValue(":url", $url, PDO::PARAM_STR);
-		$stmt->execute();
+		if(empty($this->checkImage($url))){
+			/**画像をアップロード */
+			$sql = "INSERT INTO images (book_url) VALUES (:url)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(":url", $url, PDO::PARAM_STR);
+			$stmt->execute();
+		}
 	}
 
 }
