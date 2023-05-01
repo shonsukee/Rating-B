@@ -33,15 +33,48 @@ function createTableIfNotExists($pdo, $tableName, $columns) {
 
 function new_PDO() //PDOインスタンスを返却
 {
-    $user = "shonsuke";
-	$pass = "ShonsukePass12";
-    $pdo = new PDO("mysql:host=localhost;dbname=ratingb;charset=utf8", $user, $pass, [
+	$dbUrl = getenv('JAWSDB_URL');
+	$pattern = '/mysql:\/\/(.*):(.*)@(.*):(.*)\/(.*)/';
+	preg_match($pattern, $dbUrl, $params);
+	$database = $params[5];
+	$username = $params[1];
+	$password = $params[2];
+	$host = $params[3];
+	$port = $params[4];
+
+	$pdo = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::MYSQL_ATTR_INIT_COMMAND => "SET sql_mode='STRICT_TRANS_TABLES'",
         PDO::ATTR_EMULATE_PREPARES => false
     ]);
+
+	$tableName = "comments";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				image_id INT(11) NOT NULL,
+				user_id INT(11) NOT NULL,
+				comment TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+				comment_eva INT(11) NOT NULL,
+				create_date TIMESTAMP NOT NULL DEFAULT current_timestamp()";	
+	createTableIfNotExists($pdo, $tableName, $columns);
+
+	$tableName = "images";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				book_url VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+				create_date TIMESTAMP NOT NULL DEFAULT current_timestamp()";
+	createTableIfNotExists($pdo, $tableName, $columns);
+
+	$tableName = "register_user";
+	$columns = "id INT(11) NOT NULL AUTO_INCREMENT,
+				name TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				mail TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				password TEXT COLLATE utf8mb4_general_ci NOT NULL,
+				status TINYINT(1) NOT NULL DEFAULT '0',
+				create_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				update_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP";
+	createTableIfNotExists($pdo, $tableName, $columns);
 	
-    return $pdo;	
+    return $pdo;
 }
 
 function sign_in($account) //セッションにアカウントデータを保存
