@@ -11,7 +11,7 @@ try{
 
 	$images = $image_dao->selectAll();
 
-	require("../view/home_view.php");
+	require("../view/index_view.php");
 } catch(PDOException $e) {
 	error_log($e->getMessage());
 	header("Location: error.php");
