@@ -4,4 +4,4 @@ require("../libs/functions.php");
 
 sign_out();
 
-header("Location: index.php");
+header("Location: home.php");

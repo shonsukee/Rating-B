@@ -27,4 +27,4 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET["link"])) {
 	}
 }
 
-header('Location: index.php', true, 303); //指定ページに遷移
+header('Location: home.php', true, 303); //指定ページに遷移
