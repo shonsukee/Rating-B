@@ -58,7 +58,7 @@ try{
 	// sign_in してログイン
 	sign_in($user_info);
 	set_message(MESSAGE_SIGNIN_SUCCESS);
-	header("Location: home.php");
+	header("Location: index.php");
 } catch(PDOException $e){
 	set_message(MESSAGE_SIGNIN_ERROR);
 	header("Location: error.php");

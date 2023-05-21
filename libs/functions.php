@@ -20,22 +20,9 @@ function h($str) // HTML特殊文字を変換
     return htmlspecialchars($str, ENT_QUOTES);
 }
 
-function createTableIfNotExists($pdo, $tableName, $columns) {
-    $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
-    $stmt->execute([$tableName]);
-    $result = $stmt->rowCount();
-    if ($result == 0) {
-        // テーブルが存在しない場合のみクエリを実行する
-        $query = "CREATE TABLE " . $tableName . " (" . $columns . ")";
-        $pdo->exec($query);
-    }
-}
-
 function new_PDO() //PDOインスタンスを返却
-{
-    $user = "shonsuke";
-	$pass = "ShonsukePass12";
-    $pdo = new PDO("mysql:host=localhost;dbname=ratingb;charset=utf8", $user, $pass, [
+{	
+    $pdo = new PDO("mysql:host=$host;dbname=$database;port=$port;", $user, $pass, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES => false

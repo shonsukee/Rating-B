@@ -62,7 +62,7 @@ try{
 	$user_info = $user_dao->selectByEmail(h($email));
 	sign_in($user_info);
 	set_message(MESSAGE_SIGNUP_SUCCESS);
-	header("Location: home.php");
+	header("Location: index.php");
 } catch(PDOException $e){
 	error_log($e->getMessage());
 	set_message(MESSAGE_SIGNUP_ERROR);
