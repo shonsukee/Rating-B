@@ -7,9 +7,7 @@
 		<?php require("_header_view.php"); ?>		
 		<main class="container py-4">
 			<?php require("_message_view.php"); ?>
-			<!-- <div class="row mt-3"> -->
 			<div class="row">
-
 				<div class="col-lg-5">
 					<div>
 						<h3>Recommend Book</h3>
