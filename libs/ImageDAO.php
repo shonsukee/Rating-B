@@ -12,7 +12,7 @@ class ImageDAO{
 				from
 					images
 				order by
-					id";
+					id DESC";
 		$st = $this->pdo->query($sql);
 		$courses = $st->fetchAll();
 

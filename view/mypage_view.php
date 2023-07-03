@@ -19,6 +19,11 @@
 				</div>
 				<hr>
 				<div class="row">
+					<?php if(empty($images)){ ?>
+						<div class="col-lg-12 cen-ptn">
+							コメントした本はありません...
+						</div>
+					<?php } else { ?>
 					<?php foreach ($images as $image) { ?> <!--降順に画像を貼る-->
 						<div class="col-lg-3">
 							<div class="mb-4 one-book cen-ptn shadow-md">
@@ -32,7 +37,8 @@
 								</a>
 							</div>
 						</div>
-					<?php };?>
+					<?php }
+					}?>
 				</div>
 			</main>
 		<?php require("_footer_view.php"); ?>

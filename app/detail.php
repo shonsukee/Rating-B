@@ -44,6 +44,14 @@ try{
 		$csrf_token = generate_csrf_token();
 	}
 
+	$list = [
+		1 => '★',
+		2 => '★★',
+		3 => '★★★',
+		4 => '★★★★',
+		5 => '★★★★★',
+	];
+
 	require("../view/detail_view.php");
 } catch(PDOException $e){
 	error_log($e->getMessage());

@@ -3,5 +3,8 @@
     {
       "url": "heroku/php"
     }
-  ]
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.5"
+  }
 }

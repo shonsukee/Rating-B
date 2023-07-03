@@ -1,4 +1,6 @@
 <?php
+// require __DIR__ . '/../vendor/autoload.php';
+
 define("SESSION_ACCOUNT", "SESSION_ACCOUNT");
 define("SESSION_MESSAGE", "SESSION_MESSAGE");
 define("SESSION_CSRF_TOKEN", "SESSION_CSRF_TOKEN");
@@ -21,14 +23,32 @@ function h($str) // HTML特殊文字を変換
 }
 
 function new_PDO() //PDOインスタンスを返却
-{	
-    $pdo = new PDO("mysql:host=$host;dbname=$database;port=$port;", $user, $pass, [
+{
+	// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+	// $dotenv->load();
+
+	$database = "ratingb";
+	$username = "root";
+	$password = "";
+	$host = "localhost";
+	$port = "3306";
+
+	// $database = getenv('DATABASE');
+	// var_dump($database);
+	// $username = getenv('USERNAME');
+	// $password = getenv('PASSWORD');
+	// $host = getenv('HOST');
+	// $port = getenv('PORT');
+	// echo $database . $username . $password . $host . $port;
+
+	$pdo = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::MYSQL_ATTR_INIT_COMMAND => "SET sql_mode='STRICT_TRANS_TABLES'",
         PDO::ATTR_EMULATE_PREPARES => false
     ]);
-	
-    return $pdo;	
+
+    return $pdo;
 }
 
 function sign_in($account) //セッションにアカウントデータを保存
